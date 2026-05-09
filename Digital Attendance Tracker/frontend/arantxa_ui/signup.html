@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Class Attendance Tracker - Sign Up</title>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<section class="login-page">
+    <div class="login-card">
+        <h1>Welcome</h1>
+        <p>Sign up here</p>
+
+        <div class="form-group">
+            <label>Username</label>
+            <input id="username" type="text" placeholder="Enter username">
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input id="password" type="password" placeholder="Create password">
+        </div>
+
+        <div class="form-group">
+            <label>Confirm</label>
+            <input id="confirm-password" type="password" placeholder="Confirm password">
+        </div>
+
+        <div class="form-group">
+            <label>Role</label>
+            <select id="role">
+                <option value="student">Student</option>
+                <option value="lecturer">Lecturer</option>
+                <option value="admin">Admin</option>
+            </select>
+        </div>
+
+        <button class="btn" type="button" onclick="signup()">SIGN UP</button>
+        <br><br>
+        <a href="login.html" class="btn">BACK TO LOGIN</a>
+    </div>
+</section>
+
+<script>
+async function signup() {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const confirmPassword = document.getElementById("confirm-password").value.trim();
+    const role = document.getElementById("role").value;
+
+    if (!username || !password || !confirmPassword) {
+        alert("Please fill in all fields");
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        alert("Passwords do not match");
+        return;
+    }
+
+    try {
+        const response = await fetch("/signup", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({username, password, role})
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            alert("Account created successfully. You can now login.");
+            window.location.href = "login.html";
+        } else {
+            alert(data.message || "Signup failed");
+        }
+    } catch (error) {
+        alert("Backend is not running. Start Flask with: python elsabackend.py");
+    }
+}
+</script>
+
+</body>
+</html>

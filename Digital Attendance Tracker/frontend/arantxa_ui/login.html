@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Class Attendance Tracker - Login</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<section class="login-page">
+    <div class="login-card">
+        <h1>Welcome Back!</h1>
+        <p>Login to your account</p>
+
+        <div class="form-group">
+            <label>Username</label>
+            <input id="username" type="text" placeholder="Enter username">
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input id="password" type="password" placeholder="Enter password">
+        </div>
+
+        <button class="btn" type="button" onclick="login()">LOGIN</button>
+
+        <p class="signup-text">Do not have an account?</p>
+        <a href="signup.html" class="btn">SIGN UP</a>
+    </div>
+</section>
+
+<script>
+async function login() {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (!username || !password) {
+        alert("Please enter username and password");
+        return;
+    }
+
+    try {
+        const response = await fetch("/login", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({username, password})
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            localStorage.setItem("loggedInUser", data.user.username);
+            localStorage.setItem("role", data.user.role);
+            window.location.href = "dashboard.html";
+        } else {
+            alert(data.message || "Login failed");
+        }
+    } catch (error) {
+        alert("Backend is not running. Start Flask with: python elsabackend.py");
+    }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Class Attendance Tracker - Attendance</title>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<section class="attendance-page lecturer-page">
+    <div class="layout">
+        <aside class="sidebar">
+            <h2 class="brand">Class Attendance Tracker</h2>
+
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-item nav-link">Dashboard</a>
+                <a href="attendance.html" class="nav-item nav-link lecturer-only">Mark Attendance</a>
+                <a href="checkin.html" class="nav-item nav-link">Student Check-In</a>
+                <a href="login.html" class="nav-item nav-link" onclick="logout()">Logout</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="topbar">
+                <h1>Mark Attendance</h1>
+                <a href="login.html" class="btn" onclick="logout()">Logout</a>
+            </div>
+
+            <div class="page-card">
+                <h2>Add Student</h2>
+                <input id="new-student-name" type="text" placeholder="Student name">
+                <input id="new-student-number" type="text" placeholder="Student number">
+                <button class="btn" type="button" onclick="addStudent()">Add Student</button>
+
+                <br><br>
+                <h2>Attendance List</h2>
+                <input id="student-search" type="text" placeholder="Search student">
+
+                <table class="attendance-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Student Number</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendance-body"></tbody>
+                </table>
+
+                <div class="button-row">
+                    <button class="btn" type="button" onclick="markSelected('Present')">Mark Present</button>
+                    <button class="btn" type="button" onclick="markSelected('Absent')">Mark Absent</button>
+                    <button class="btn" type="button" onclick="deleteSelectedStudent()">Delete Student</button>
+                </div>
+            </div>
+        </main>
+    </div>
+</section>
+
+<script src="/rejoice_script.js"></script>
+</body>
+</html>

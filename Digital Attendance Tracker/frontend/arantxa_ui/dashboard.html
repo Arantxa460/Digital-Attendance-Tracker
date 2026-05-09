@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Class Attendance Tracker - Dashboard</title>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<section class="dashboard-page">
+    <div class="layout">
+        <aside class="sidebar">
+            <h2 class="brand">Class Attendance Tracker</h2>
+
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-item nav-link">Dashboard</a>
+                <a href="attendance.html" class="nav-item nav-link lecturer-only">Mark Attendance</a>
+                <a href="checkin.html" class="nav-item nav-link">Student Check-In</a>
+                <a href="login.html" class="nav-item nav-link" onclick="logout()">Logout</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="topbar">
+                <h1>Dashboard</h1>
+                <a href="login.html" class="btn" onclick="logout()">Logout</a>
+            </div>
+
+            <div class="page-card">
+                <h2>Attendance Overview</h2>
+
+                <div class="dashboard-summary dashboard-grid">
+                    <div class="summary-card">
+                        <h3>Total Students</h3>
+                        <p id="total-count">0</p>
+                    </div>
+
+                    <div class="summary-card">
+                        <h3>Present</h3>
+                        <p id="present-count">0</p>
+                    </div>
+
+                    <div class="summary-card">
+                        <h3>Absent</h3>
+                        <p id="absent-count">0</p>
+                    </div>
+                </div>
+
+                <div class="student-only" style="display:none; margin-top:20px;">
+                    <h2>Student Dashboard</h2>
+                    <p class="hint">You are logged in as a student. You can check in using a PIN or QR link from your lecturer and view your attendance percentage.</p>
+                    <a href="checkin.html" class="btn">Go to Student Check-In</a>
+
+                    <br><br>
+                    <h2>My Attendance Record</h2>
+                    <input id="student-view-number" type="text" placeholder="Enter your student number">
+                    <button class="btn" type="button" onclick="loadStudentAttendance()">View My Attendance</button>
+                    <div id="student-attendance-result" style="margin-top: 15px;"></div>
+                </div>
+
+                <div class="lecturer-only">
+                    <br>
+                    <h2>QR / PIN Attendance Session</h2>
+                    <p class="hint">Create a temporary attendance session. Students can use the PIN or open the QR link.</p>
+
+                    <input id="module-name" type="text" placeholder="Module name e.g. Software Processes">
+                    <button class="btn" type="button" onclick="createSession()">Create QR / PIN Session</button>
+
+                    <div id="session-box" class="session-box"></div>
+
+                    <br>
+                    <a href="/export-attendance" class="btn">Export CSV Report</a>
+                </div>
+            </div>
+        </main>
+    </div>
+</section>
+
+<script src="/rejoice_script.js"></script>
+</body>
+</html>
